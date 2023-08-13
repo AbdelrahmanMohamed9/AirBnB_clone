@@ -13,8 +13,9 @@ from time import sleep
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel_instantiation(unittest.TestCase):
-    """ Unittests for the testing instantiation 
+    """ Unittests for the testing instantiation
     of the BaseModel class.
     """
 
@@ -86,8 +87,9 @@ class TestBaseModel_instantiation(unittest.TestCase):
         self.assertEqual(bsm.created_at, dat)
         self.assertEqual(bsm.updated_at, dat)
 
+
 class TestBaseModel_save(unittest.TestCase):
-    """ Unittests for testing save method of  
+    """ Unittests for testing save method of
     BaseModel class.
     """
 
@@ -108,7 +110,7 @@ class TestBaseModel_save(unittest.TestCase):
             os.rename("tmp", "file.json")
         except IOError:
             pass
-    
+
     def test_one_save(self):
         bsm = BaseModel()
         sleep(0.05)
@@ -139,8 +141,9 @@ class TestBaseModel_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             bsm.save(None)
 
+
 class TestBaseModel_to_dict(unittest.TestCase):
-    """ Unittests for testing to_dict method of 
+    """ Unittests for testing to_dict method of
     the BaseModel class.
     """
 

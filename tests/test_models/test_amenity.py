@@ -16,7 +16,7 @@ from models.amenity import Amenity
 
 
 class TestAmenity_instantiation(unittest.TestCase):
-    """ Unitest for testing the instantiation of the 
+    """ Unitest for testing the instantiation of the
     Amenity calss.
     """
 
@@ -89,7 +89,7 @@ class TestAmenity_instantiation(unittest.TestCase):
 
 
 class TestAmenity_save(unittest.TestCase):
-    """ Unittests for testing the  save method 
+    """ Unittests for testing the  save method
     of the Amenity class.
     """
 
@@ -142,7 +142,7 @@ class TestAmenity_save(unittest.TestCase):
 
 
 class TestAmenity_to_dict(unittest.TestCase):
-    """ Unittests for testing the to_dict method 
+    """ Unittests for testing the to_dict method
     of the Amenity class.
     """
 

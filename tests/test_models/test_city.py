@@ -16,7 +16,7 @@ from models.city import City
 
 
 class TestCity_instantiation(unittest.TestCase):
-    """ Unittests for testing The instantiation 
+    """ Unittests for testing The instantiation
     of the City class.
     """
 
@@ -98,8 +98,9 @@ class TestCity_instantiation(unittest.TestCase):
         self.assertEqual(cty.created_at, dat)
         self.assertEqual(cty.updated_at, dat)
 
+
 class TestCity_save(unittest.TestCase):
-    """cUnittests for testing the save method 
+    """cUnittests for testing the save method
     of the City class.
     """
 
@@ -137,7 +138,7 @@ class TestCity_save(unittest.TestCase):
         sleep(0.05)
         cty.save()
         self.assertLess(second_updated_at, cty.updated_at)
-    
+
     def test_save_updates_file(self):
         cty = City()
         cty.save()
@@ -149,6 +150,7 @@ class TestCity_save(unittest.TestCase):
         cty = City()
         with self.assertRaises(TypeError):
             cty.save(None)
+
 
 class TestCity_to_dict(unittest.TestCase):
     """ Unittests for testing The to_dict method
