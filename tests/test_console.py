@@ -20,6 +20,7 @@ from unittest.mock import patch
 from models import storage
 from models.engine.file_storage import FileStorage
 
+
 class TestHBNBCommand_prompting(unittest.TestCase):
     '''unittests For Testing Prompting Of The HBNB Command Interpreter'''
 

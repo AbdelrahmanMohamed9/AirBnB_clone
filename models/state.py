@@ -2,6 +2,7 @@
 """ State Class Representaion. """
 from models.base_model import BaseModel
 
+
 class State(BaseModel):
     """ Respresntation of The State.
     Attributes:

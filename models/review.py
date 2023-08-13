@@ -2,6 +2,7 @@
 """ Rview Class Defination. """
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
     """ Review Class Represnation.
     Attriputes:
@@ -10,7 +11,6 @@ class Review(BaseModel):
         user_id (string): User id.
         text (string): Text of the review.
     """
-    
 
     place_id = ""
     user_id = ""

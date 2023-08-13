@@ -2,6 +2,7 @@
 """ Place Class Defination. """
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """ Class Represents place.
     Attributes:
