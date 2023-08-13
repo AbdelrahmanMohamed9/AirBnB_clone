@@ -36,72 +36,72 @@ class TestHBNBCommand_help(unittest.TestCase):
     '''unittests For Testing Help Messages Of The HBNB Command Interpreter'''
 
     def test_help_quit(self):
-        g = "Quit command to exit the program."
+        h = "Quit command to exit the program."
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_create(self):
-        g = ("Usage: create <class>\n        "
+        h = ("Usage: create <class>\n        "
              "Create a new class instance and print its id.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help create"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_EOF(self):
-        g = "EOF signal to exit the program."
+        h = "EOF signal to exit the program."
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_show(self):
-        g = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
+        h = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
              "Display the string representation of a class instance of"
              " a given id.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help show"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_destroy(self):
-        g = ("Usage: destroy <class> <id> or <class>.destroy(<id>)\n        "
+        h = ("Usage: destroy <class> <id> or <class>.destroy(<id>)\n        "
              "Delete a class instance of a given id.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_all(self):
-        g = ("Usage: all or all <class> or <class>.all()\n        "
+        h = ("Usage: all or all <class> or <class>.all()\n        "
              "Display string representations of all instances of a given class"
              ".\n        If no class is specified, displays all instantiated "
              "objects.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help all"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help_count(self):
-        g = ("Usage: count <class> or <class>.count()\n        "
+        h = ("Usage: count <class> or <class>.count()\n        "
              "Retrieve the number of instances of a given class.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help count"))
             self.assertEqual(h, output.getvalue().strip())
 
     def test_help_update(self):
-        g = ("Usage: update <class> <id> <attribute_name> <attribute_value> or"
+        h = ("Usage: update <class> <id> <attribute_name> <attribute_value> or"
              "\n       <class>.update(<id>, <attribute_name>, <attribute_value"
              ">) or\n       <class>.update(<id>, <dictionary>)\n        "
              "Update a class instance of a given id by adding or updating\n   "
              "     a given attribute key/value pair or dictionary.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
     def test_help(self):
-        g = ("Documented commands (type help <topic>):\n"
-             "-------------------------------------\n"
+        h = ("Documented commands (type help <topic>):\n"
+             "-----------------------------------------\n"
              "EOF  all  count  create  destroy  help  quit  show  update")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help"))
-            self.assertEqual(g, output.getvalue().strip())
+            self.assertEqual(h, output.getvalue().strip())
 
 
 class TestHBNBCommand_exit(unittest.TestCase):
@@ -139,63 +139,63 @@ class TestHBNBCommand_create(unittest.TestCase):
             pass
 
     def test_create_missing_class(self):
-        corect = "** class name missing **"
+        correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_create_invalid_class(self):
-        corect = "** class doesn't exist **"
+        correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create MyModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_create_invalid_syntax(self):
-        corect = "*** Unknown syntax: MyModel.create()"
+        correct = "*** Unknown syntax: MyModel.create()"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.create()"))
-            self.assertEqual(corect, output.getvalue().strip())
-        corect = "*** Unknown syntax: BaseModel.create()"
+            self.assertEqual(correct, output.getvalue().strip())
+        correct = "*** Unknown syntax: BaseModel.create()"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.create()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_create_object(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "BaseModel.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "BaseModel.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "User.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "User.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "State.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "State.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "City.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "City.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "Amenity.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "Amenity.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "Place.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "Place.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Review"))
             self.assertLess(0, len(output.getvalue().strip()))
-            tstKey = "Review.{}".format(output.getvalue().strip())
-            self.assertIn(tstKey, storage.all().keys())
+            testKey = "Review.{}".format(output.getvalue().strip())
+            self.assertIn(testKey, storage.all().keys())
 
 
 class TestHBNBCommand_show(unittest.TestCase):
@@ -221,234 +221,233 @@ class TestHBNBCommand_show(unittest.TestCase):
             pass
 
     def test_show_missing_class(self):
-        corect = "** class name missing **"
+        correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(".show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_invalid_class(self):
-        corect = "** class doesn't exist **"
+        correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show MyModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_missing_id_space_notation(self):
-        corect = "** instance id missing **"
+        correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show BaseModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show User"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show State"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show City"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Amenity"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Place"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Review"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_missing_id_dot_notation(self):
         correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.show()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_no_instance_found_space_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show BaseModel 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show User 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show State 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show City 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Amenity 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Place 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("show Review 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_no_instance_found_dot_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.show(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
-
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_show_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["BaseModel.{}".format(tstID)]
-            comand = "show BaseModel {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["BaseModel.{}".format(testID)]
+            command = "show BaseModel {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["User.{}".format(tstID)]
-            comand = "show User {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["User.{}".format(testID)]
+            command = "show User {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["State.{}".format(tstID)]
-            comand = "show State {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["State.{}".format(testID)]
+            command = "show State {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Place.{}".format(tstID)]
-            comand = "show Place {}".format(testID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Place.{}".format(testID)]
+            command = "show Place {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["City.{}".format(tstID)]
-            comand = "show City {}".format(tstID)
+            obj = storage.all()["City.{}".format(testID)]
+            command = "show City {}".format(testID)
             self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Amenity.{}".format(tstID)]
-            comand = "show Amenity {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Amenity.{}".format(testID)]
+            command = "show Amenity {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Review"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Review.{}".format(tstID)]
-            comand = "show Review {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Review.{}".format(testID)]
+            command = "show Review {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
 
     def test_show_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["BaseModel.{}".format(tstID)]
-            comand = "BaseModel.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["BaseModel.{}".format(testID)]
+            command = "BaseModel.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["User.{}".format(tstID)]
-            comand = "User.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["User.{}".format(testID)]
+            command = "User.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["State.{}".format(tstID)]
-            command = "State.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["State.{}".format(testID)]
+            command = "State.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Place.{}".format(tstID)]
-            command = "Place.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Place.{}".format(testID)]
+            command = "Place.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["City.{}".format(tstID)]
-            comand = "City.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["City.{}".format(testID)]
+            command = "City.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Amenity.{}".format(tstID)]
-            command = "Amenity.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Amenity.{}".format(testID)]
+            command = "Amenity.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Review"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Review.{}".format(tstID)]
-            comand = "Review.show({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Review.{}".format(testID)]
+            command = "Review.show({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertEqual(obj.__str__(), output.getvalue().strip())
 
 
@@ -476,233 +475,233 @@ class TestHBNBCommand_destroy(unittest.TestCase):
         storage.reload()
 
     def test_destroy_missing_class(self):
-        corect = "** class name missing **"
+        correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy"))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(".destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_invalid_class(self):
-        corect = "** class doesn't exist **"
+        correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy MyModel"))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_id_missing_space_notation(self):
-        corect = "** instance id missing **"
+        correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy BaseModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy User"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy State"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy City"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Amenity"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Place"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Review"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_id_missing_dot_notation(self):
-        corect = "** instance id missing **"
+        correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.destroy()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_invalid_id_space_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy BaseModel 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy User 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy State 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy City 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Amenity 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Place 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("destroy Review 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_invalid_id_dot_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.destroy(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_destroy_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["BaseModel.{}".format(tstID)]
-            comand = "destroy BaseModel {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["BaseModel.{}".format(testID)]
+            command = "destroy BaseModel {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["User.{}".format(tstID)]
-            command = "show User {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["User.{}".format(testID)]
+            command = "show User {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["State.{}".format(tstID)]
-            command = "show State {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["State.{}".format(testID)]
+            command = "show State {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
             obj = storage.all()["Place.{}".format(testID)]
-            comand = "show Place {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            command = "show Place {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["City.{}".format(tstID)]
-            comand = "show City {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["City.{}".format(testID)]
+            command = "show City {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Amenity.{}".format(tstID)]
-            comand = "show Amenity {}".format(testID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Amenity.{}".format(testID)]
+            command = "show Amenity {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Review"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Review.{}".format(tstID)]
-            comand = "show Review {}".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Review.{}".format(testID)]
+            command = "show Review {}".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
 
     def test_destroy_objects_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["BaseModel.{}".format(tstID)]
-            comand = "BaseModel.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["BaseModel.{}".format(testID)]
+            command = "BaseModel.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["User.{}".format(tstID)]
-            comand = "User.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["User.{}".format(testID)]
+            command = "User.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["State.{}".format(tstID)]
-            comand = "State.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["State.{}".format(testID)]
+            command = "State.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Place.{}".format(tstID)]
-            comand = "Place.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Place.{}".format(testID)]
+            command = "Place.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["City.{}".format(tstID)]
-            comand = "City.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["City.{}".format(testID)]
+            command = "City.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Amenity.{}".format(tstID)]
-            comand = "Amenity.destroy({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Amenity.{}".format(testID)]
+            command = "Amenity.destroy({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Review"))
-            tstID = output.getvalue().strip()
+            testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = storage.all()["Review.{}".format(tstID)]
-            comand = "Review.destory({})".format(tstID)
-            self.assertFalse(HBNBCommand().onecmd(comand))
+            obj = storage.all()["Review.{}".format(testID)]
+            command = "Review.destory({})".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
 
 
@@ -729,13 +728,13 @@ class TestHBNBCommand_all(unittest.TestCase):
             pass
 
     def test_all_invalid_class(self):
-        corect = "** class doesn't exist **"
+        correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("all MyModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.all()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_all_objects_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -875,630 +874,630 @@ class TestHBNBCommand_update(unittest.TestCase):
             pass
 
     def test_update_missing_class(self):
-        corect = "** class name missing **"
+        correct = "** class name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(".update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_invalid_class(self):
-        corect = "** class doesn't exist **"
+        correct = "** class doesn't exist **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update MyModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("MyModel.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_id_space_notation(self):
-        corect = "** instance id missing **"
+        correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update BaseModel"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update User"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update State"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update City"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Amenity"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Place"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Review"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_id_dot_notation(self):
-        corect = "** instance id missing **"
+        correct = "** instance id missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.update()"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_invalid_id_space_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update BaseModel 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update User 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update State 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update City 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Amenity 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Place 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("update Review 1"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_invalid_id_dot_notation(self):
-        corect = "** no instance found **"
+        correct = "** no instance found **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("User.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("City.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Amenity.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Place.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("Review.update(1)"))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_attr_name_space_notation(self):
-        corect = "** attribute name missing **"
+        correct = "** attribute name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update BaseModel {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update BaseModel {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update User {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update User {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update State {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update State {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update City {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update City {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update Amenity {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update Amenity {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstId = output.getvalue().strip()
-            tstCmd = "update Place {}".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "update Place {}".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
             self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_attr_name_dot_notation(self):
-        corect = "** attribute name missing **"
+        correct = "** attribute name missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-            tstId = output.getvalue().strip()
-            tstCmd = "BaseModel.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "BaseModel.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create User"))
-            tstId = output.getvalue().strip()
-            tstCmd = "User.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "User.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create State"))
-            tstId = output.getvalue().strip()
-            tstCmd = "State.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "State.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create City"))
-            tstId = output.getvalue().strip()
-            tstCmd = "City.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "City.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-            tstId = output.getvalue().strip()
-            tstCmd = "Amenity.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "Amenity.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("create Place"))
-            tstId = output.getvalue().strip()
-            tstCmd = "Place.update({})".format(tstId)
+            testId = output.getvalue().strip()
+            testCmd = "Place.update({})".format(testId)
         with patch("sys.stdout", new=StringIO()) as output:
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_attr_value_space_notation(self):
-        corect = "** value missing **"
+        correct = "** value missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update BaseModel {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update BaseModel {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update User {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update User {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update State {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update State {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update City {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update City {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update Amenity {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update Amenity {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update Place {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update Place {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "update Review {} attr_name".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "update Review {} attr_name".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_missing_attr_value_dot_notation(self):
-        corect = "** value missing **"
+        correct = "** value missing **"
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "BaseModel.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "BaseModel.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "User.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "User.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "State.update({}, attr_name)".format(testId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "State.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "City.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "City.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "Amenity.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "Amenity.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "Place.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "Place.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            tstId = output.getvalue().strip()
+            testId = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
-            tstCmd = "Review.update({}, attr_name)".format(tstId)
-            self.assertFalse(HBNBCommand().onecmd(tstCmd))
-            self.assertEqual(corect, output.getvalue().strip())
+            testCmd = "Review.update({}, attr_name)".format(testId)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
+            self.assertEqual(correct, output.getvalue().strip())
 
     def test_update_valid_string_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            tstId = output.getvalue().strip()
-        tstCmd = "update BaseModel {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["BaseModel.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update BaseModel {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["BaseModel.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            tstId = output.getvalue().strip()
-        tstCmd = "update User {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["User.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update User {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["User.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
-            tstId = output.getvalue().strip()
-        tstCmd = "update State {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["State.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update State {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["State.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            tstId = output.getvalue().strip()
-        tstCmd = "update City {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["City.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update City {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["City.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Amenity {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Amenity.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Amenity {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Amenity.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Review {} attr_name 'attr_value'".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Review.{}".format(tstId)].__dict__
-        self.assertTrue("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Review {} attr_name 'attr_value'".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Review.{}".format(testId)].__dict__
+        self.assertTrue("attr_value", test_dict["attr_name"])
 
     def test_update_valid_string_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            fId = output.getvalue().strip()
-        tstCmd = "BaseModel.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["BaseModel.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "BaseModel.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["BaseModel.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            fId = output.getvalue().strip()
-        tstCmd = "User.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["User.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "User.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["User.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
-            fId = output.getvalue().strip()
-        tstCmd = "State.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["State.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "State.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["State.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            fId = output.getvalue().strip()
-        tstCmd = "City.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["City.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "City.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["City.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            fId = output.getvalue().strip()
-        tstCmd = "Place.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "Place.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            fId = output.getvalue().strip()
-        tstCmd = "Amenity.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Amenity.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "Amenity.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Amenity.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            fId = output.getvalue().strip()
-        tstCmd = "Review.update({}, attr_name, 'attr_value')".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Review.{}".format(fId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            tId = output.getvalue().strip()
+        testCmd = "Review.update({}, attr_name, 'attr_value')".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Review.{}".format(tId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
     def test_update_valid_int_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} max_guest 98".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual(98, tst_dct["max_guest"])
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} max_guest 98".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
 
     def test_update_valid_int_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            fId = output.getvalue().strip()
-        tstCmd = "Place.update({}, max_guest, 98)".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(fId)].__dict__
-        self.assertEqual(98, tst_dct["max_guest"])
+            tId = output.getvalue().strip()
+        testCmd = "Place.update({}, max_guest, 98)".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(tId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
 
     def test_update_valid_float_attr_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} latitude 7.2".format(tstId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual(7.2, tst_dct["latitude"])
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} latitude 7.2".format(testId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(7.2, test_dict["latitude"])
 
     def test_update_valid_float_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            fId = output.getvalue().strip()
-        tstCmd = "Place.update({}, latitude, 7.2)".format(fId)
-        self.assertFalse(HBNBCommand().onecmd(tstCmd))
-        tst_dct = storage.all()["Place.{}".format(fId)].__dict__
-        self.assertEqual(7.2, tst_dct["latitude"])
+            tId = output.getvalue().strip()
+        testCmd = "Place.update({}, latitude, 7.2)".format(tId)
+        self.assertFalse(HBNBCommand().onecmd(testCmd))
+        test_dict = storage.all()["Place.{}".format(tId)].__dict__
+        self.assertEqual(7.2, test_dict["latitude"])
 
     def test_update_valid_dictionary_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            tstId = output.getvalue().strip()
-        tstCmd = "update BaseModel {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["BaseModel.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update BaseModel {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["BaseModel.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            tstId = output.getvalue().strip()
-        tstCmd = "update User {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["User.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update User {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["User.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
-            tstId = output.getvalue().strip()
-        tstCmd = "update State {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["State.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update State {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["State.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            tstId = output.getvalue().strip()
-        tstCmd = "update City {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["City.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update City {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["City.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Amenity {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Amenity.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Amenity {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Amenity.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Review {} ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'}"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Review.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "update Review {} ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'}"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Review.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
     def test_update_valid_dictionary_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create BaseModel")
-            tstId = output.getvalue().strip()
-        tstCmd = "BaseModel.update({}".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["BaseModel.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "BaseModel.update({}".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["BaseModel.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create User")
-            tstId = output.getvalue().strip()
-        tstCmd = "User.update({}, ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["User.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "User.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["User.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create State")
             testId = output.getvalue().strip()
-        tstCmd = "State.update({}, ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["State.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+        testCmd = "State.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["State.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create City")
-            tstId = output.getvalue().strip()
-        tstCmd = "City.update({}, ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["City.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "City.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["City.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
-            HBNBCommand().onecmd("create Place")f
+            HBNBCommand().onecmd("create Place")
             testId = output.getvalue().strip()
-        tstCmd = "Place.update({}, ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+        testCmd = "Place.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Amenity")
-            tstId = output.getvalue().strip()
-        tstCmd = "Amenity.update({}, ".format(tstId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Amenity.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "Amenity.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Amenity.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Review")
-            tstId = output.getvalue().strip()
-        tstCmd = "Review.update({}, ".format(testId)
-        tstCmd += "{'attr_name': 'attr_value'})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Review.{}".format(tstId)].__dict__
-        self.assertEqual("attr_value", tst_dct["attr_name"])
+            testId = output.getvalue().strip()
+        testCmd = "Review.update({}, ".format(testId)
+        testCmd += "{'attr_name': 'attr_value'})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Review.{}".format(testId)].__dict__
+        self.assertEqual("attr_value", test_dict["attr_name"])
 
     def test_update_valid_dictionary_with_int_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} ".format(tstId)
-        tstCmd += "{'max_guest': 98})"
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} ".format(testId)
+        testCmd += "{'max_guest': 98})"
         HBNBCommand().onecmd(testCmd)
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual(98, tst_dct["max_guest"])
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
 
     def test_update_valid_dictionary_with_int_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
             testId = output.getvalue().strip()
-        tstCmd = "Place.update({}, ".format(tstId)
-        tstCmd += "{'max_guest': 98})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual(98, tst_dct["max_guest"])
+        testCmd = "Place.update({}, ".format(testId)
+        testCmd += "{'max_guest': 98})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(98, test_dict["max_guest"])
 
     def test_update_valid_dictionary_with_float_space_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "update Place {} ".format(tstId)
-        tstCmd += "{'latitude': 9.8})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Place.{}".format(tstId)].__dict__
-        self.assertEqual(9.8, tst_dct["latitude"])
+            testId = output.getvalue().strip()
+        testCmd = "update Place {} ".format(testId)
+        testCmd += "{'latitude': 9.8})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(9.8, test_dict["latitude"])
 
     def test_update_valid_dictionary_with_float_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
-            tstId = output.getvalue().strip()
-        tstCmd = "Place.update({}, ".format(tstId)
-        tstCmd += "{'latitude': 9.8})"
-        HBNBCommand().onecmd(tstCmd)
-        tst_dct = storage.all()["Place.{}".format(testId)].__dict__
-        self.assertEqual(9.8, tst_dct["latitude"])
+            testId = output.getvalue().strip()
+        testCmd = "Place.update({}, ".format(testId)
+        testCmd += "{'latitude': 9.8})"
+        HBNBCommand().onecmd(testCmd)
+        test_dict = storage.all()["Place.{}".format(testId)].__dict__
+        self.assertEqual(9.8, test_dict["latitude"])
 
 
 class TestHBNBCommand_count(unittest.TestCase):
