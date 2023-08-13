@@ -38,7 +38,7 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_two_amenities_unique_ids(self):
         amn1 = Amenity()
         amn2 = Amenity()
-        self.assertNotEqual(amn1.id, amn2.id
+        self.assertNotEqual(amn1.id, amn2.id)
 
     def test_name_is_public_class_attribute(self):
         amn = Amenity()
