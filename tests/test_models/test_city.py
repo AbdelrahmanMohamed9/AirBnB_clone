@@ -99,9 +99,9 @@ class TestCity_instantiation(unittest.TestCase):
         self.assertEqual(cty.updated_at, dat)
 
 class TestCity_save(unittest.TestCase):
-        """cUnittests for testing the save method 
-        of the City class.
-        """
+    """cUnittests for testing the save method 
+    of the City class.
+    """
 
     @classmethod
     def setUp(self):
@@ -183,7 +183,7 @@ class TestCity_to_dict(unittest.TestCase):
         dat = datetime.today()
         cty = City()
         cty.id = "123456"
-        cty.created_at = cy.updated_at = dat
+        cty.created_at = cty.updated_at = dat
         tdict = {
             'id': '123456',
             '__class__': 'City',

@@ -142,7 +142,7 @@ class TestUser_save(unittest.TestCase):
 
 
 class TestUser_to_dict(unittest.TestCase):
-     '''unittests For Testing to_dict Method Of The user Class'''
+    '''unittests For Testing to_dict Method Of The user Class'''
 
     def test_to_dict_type(self):
         self.assertTrue(dict, type(User().to_dict()))

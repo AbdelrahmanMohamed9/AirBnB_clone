@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             if match is not None:
                 comand = [rgl[1][:match.span()[0]], match.group()[1:-1]]
                 if comand[0] in rgdct.keys():
-                    cal = '{} {}'.format(argl[0], comand[1])
+                    cal = '{} {}'.format(rgl[0], comand[1])
                     return rgdct[comand[0]](cal)
         print('*** unknown Syntax: {}'.format(arg))
         return False
@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
         elif rgl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print(eval(argl[0])().id)
+            print(eval(rgl[0])().id)
             storage.save()
 
     def do_show(self, arg):
@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             print("** Class Doesn't Exist **")
         else:
             bjl = []
-            for bj in storage.all().values():
+            for obj in storage.all().values():
                 if len(rgl) > 0 and rgl[0] == obj.__class__.__name__:
                     bjl.append(obj.__str__())
                 elif len(rgl) == 0:
@@ -189,20 +189,20 @@ class HBNBCommand(cmd.Cmd):
 
         if len(rgl) == 4:
             bj = bjdct["{}.{}".format(rgl[0], rgl[1])]
-            if rgl[2] in obj.__class__.__dict__.keys():
-                vltype = type(obj.__class__.__dict__[rgl[2]])
-                obj.__dict__[rgl[2]] = vltype(rgl[3])
+            if rgl[2] in bj.__class__.__dict__.keys():
+                vltype = type(bj.__class__.__dict__[rgl[2]])
+                bj.__dict__[rgl[2]] = vltype(rgl[3])
             else:
-                obj.__dict__[rgl[2]] = rgl[3]
+                bj.__dict__[rgl[2]] = rgl[3]
         elif type(eval(rgl[2])) == dict:
             bj = bjdct["{}.{}".format(rgl[0], rgl[1])]
             for k, v in eval(rgl[2]).items():
-                if (k in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[k]) in {str, int, float}):
-                    vltype = type(obj.__class__.__dict__[k])
-                    obj.__dict__[k] = vltype(v)
+                if (k in bj.__class__.__dict__.keys() and
+                        type(bj.__class__.__dict__[k]) in {str, int, float}):
+                    vltype = type(bj.__class__.__dict__[k])
+                    bj.__dict__[k] = vltype(v)
                 else:
-                    obj.__dict__[k] = v
+                    bj.__dict__[k] = v
         storage.save()
 
 
