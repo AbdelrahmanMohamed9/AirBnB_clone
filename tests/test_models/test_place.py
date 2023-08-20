@@ -13,6 +13,7 @@ from time import sleep
 from models.place import Place
 from datetime import datetime
 
+
 class TestPlace_instantiation(unittest.TestCase):
     '''unittests For Testing Instantiation Of The Place Class'''
 

@@ -2,6 +2,7 @@
 """ User Class. """
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """ Class Represents User.
 

@@ -13,6 +13,7 @@ from models.review import Review
 from models import storage
 from models.base_model import BaseModel
 
+
 def parse(arg):
     crly_brces = re.search(r"\{(.*?)\}", arg)
     brckets = re.search(r"\[(.*?)\]", arg)
